@@ -1,11 +1,19 @@
 package com.k3rnl
 
+import com.k3rnl.Animators.ObjectAnimator
+import com.k3rnl.Constants.{Color, Colors}
 import com.k3rnl.Ray.Intersection
 
 import math.sqrt
 import com.k3rnl.Vectors.Vector3d
 
-class Sphere(position: Vector3d, var R: Float) extends Object(position) {
+case class Sphere(override val position: Vector3d,
+                  override val material: Material = Materials.Mat,
+                  override val color: Color = Colors.White,
+                  override val animators: List[ObjectAnimator] = List(),
+                  R: Float)
+  extends Object(position, material, color) {
+
   override def intersect(ray: Ray): Intersection = {
     val oc = ray.position - position
     val a = ray.direction dot ray.direction
@@ -15,8 +23,17 @@ class Sphere(position: Vector3d, var R: Float) extends Object(position) {
 
     if (d < Constants.Epsilon)
       return ray.missed()
-    ray.intersection(on = this, withDistance = (-b - sqrt(d)) / (2.0 * a))
+    val distance = (-b - sqrt(d)) / (2.0 * a)
+
+    if (distance < Constants.Epsilon) ray.missed() else ray.intersection(on = this, withDistance = distance)
   }
 
-  override def normal(intersection: Intersection): Vector3d = (position - intersection.position).normalized
+  override def normal(intersection: Intersection): Vector3d = {
+    val normal = (intersection.position - position).normalized
+    if ((intersection.ray.position - position).length > R * R)
+      normal
+    else
+      normal.negate
+  }
+
 }
