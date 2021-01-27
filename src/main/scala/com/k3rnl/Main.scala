@@ -19,12 +19,9 @@ object Main extends App {
   override def main(args: Array[String]): Unit = {
 
     val _scene = Scenes.test2
-    val image = new WindowOutput(_scene.sizeX, _scene.sizeY)
     while (true) {
       val scene = _scene.animate(System.nanoTime() / 1000000000.0)
-
-      //      val image = new BMPImageOutput(count.toString + ".bmp", scene.sizeX, scene.sizeY)
-      //      val image = new ShellImageOutput(SIZE_X, SIZE_Y)
+      val image = scene.output
 
       for (y <- (0 until scene.sizeY).par; x <- (0 until scene.sizeX)) yield {
         val imageAspectRatio = scene.sizeX / scene.sizeY.toFloat; // assuming width > height
@@ -37,10 +34,10 @@ object Main extends App {
 
         if (intersection.hit) {
           val color: Color = scene.shaders.shade(intersection, scene)
-          image.write(color toInt, x, y)
+          image.write(color, x, y)
         }
         else
-          image.write(scene.background toInt, x, y)
+          image.write(scene.background, x, y)
 
       }
 

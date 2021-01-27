@@ -2,7 +2,7 @@ package com.k3rnl
 
 import com.k3rnl.Animators.{MoveCamera, MoveLight, xCos, ySin, zCos, zSin}
 import com.k3rnl.Constants.{Color, Epsilon}
-import com.k3rnl.Materials.{Glass, Mat, Metal}
+import com.k3rnl.Materials.{Glass, Metal}
 import com.k3rnl.Shaders.{lambertShading, reflectionShading, refractionShading, specularLightShading}
 import com.k3rnl.Vectors.Vector3d
 

@@ -1,6 +1,7 @@
 package com.k3rnl
 
 import com.k3rnl.Constants.{Color, Colors}
+import com.k3rnl.Materials.Material
 import com.k3rnl.Ray.Intersection
 import com.k3rnl.Vectors.Vector3d
 
