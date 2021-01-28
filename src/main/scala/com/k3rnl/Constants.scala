@@ -9,9 +9,15 @@ object Constants {
   val fov = 60
 
   object Colors {
-    val White = new Color(1)
     val Ambient = new Color(0.1)
+    val White = new Color(1)
     val Black = new Color(0)
+    val Red = new Color(1, 0, 0)
+    val Green = new Color(0, 1, 0)
+    val Blue = new Color(0, 0, 1)
+    val Magenta = new Color(1, 0, 1)
+    val Yellow = new Color(1, 1, 0)
+    val Cyan = new Color(0, 1, 1)
 
     def getRed(value: Int): Byte = {
       ((value & 0x00FF0000) >> 16).asInstanceOf[Byte]
