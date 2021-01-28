@@ -2,9 +2,11 @@ package com.k3rnl
 
 import com.k3rnl.Animators.{MoveCamera, MoveLight, xCos, ySin, zCos, zSin}
 import com.k3rnl.Constants.{Color, Epsilon}
+import com.k3rnl.ImageOutputs.{ShellImageOutput, WindowOutput}
 import com.k3rnl.Materials.{Glass, Metal}
 import com.k3rnl.Shaders.{lambertShading, reflectionShading, refractionShading, specularLightShading}
 import com.k3rnl.Vectors.Vector3d
+import sun.awt.shell.ShellFolderColumnInfo
 
 
 object Scenes {
@@ -19,13 +21,26 @@ object Scenes {
     animators = List(MoveLight(20, List(xCos, zSin)))
   )
 
-  val test2: Scene = Scene(512, 512, new Vector3d(0, 10, 70),
-    light = Vector3(0, 20, 50),
+  val test2: Scene = Scene(51, 20, new Vector3d(0, 5, 20),
+    light = Vector3(0, 15, 10),
     objects = List(
       Sphere(Vector3(0, 0, 0), R = 5, color = new Color(0.95, 1, 0.2)),
       Plan(Vector3(0, 0, 0))
     ),
-    shaders = List(lambertShading, specularLightShading)
+    shaders = List(lambertShading, specularLightShading),
+    imageOutput = new ShellImageOutput,
+    animators = List(MoveLight(10, List(xCos, zSin)))
+  )
+
+  val test3: Scene = Scene(510, 200, new Vector3d(0, 5, 20),
+    light = Vector3(0, 15, 10),
+    objects = List(
+      Sphere(Vector3(0, 0, 0), R = 5, color = new Color(0.95, 1, 0.2)),
+      Plan(Vector3(0, 0, 0))
+    ),
+    shaders = List(lambertShading, specularLightShading),
+    imageOutput = new WindowOutput,
+    animators = List(MoveLight(10, List(xCos, zSin)))
   )
 
   val refraction1: Scene = Scene(512, 512, new Vector3d(0, 0, 70),
@@ -39,6 +54,6 @@ object Scenes {
       //      Plan(Vector3(0, -20, 0), material = Metal)
     ),
     shaders = List(lambertShading, specularLightShading, reflectionShading, refractionShading),
-    animators = List(MoveCamera(23, List(xCos, ySin)), MoveLight(23, List(xCos, ySin)))
+    animators = List(MoveLight(23, List(xCos, ySin)))
   )
 }

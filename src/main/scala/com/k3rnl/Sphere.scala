@@ -29,12 +29,6 @@ case class Sphere(override val position: Vector3d,
     if (distance < Constants.Epsilon) ray.missed() else ray.intersection(on = this, withDistance = distance)
   }
 
-  override def normal(intersection: Intersection): Vector3d = {
-    val normal = (intersection.position - position).normalized
-    if ((intersection.ray.position - position).length > R * R)
-      normal
-    else
-      normal.negate
-  }
+  override def normal(intersection: Intersection): Vector3d = (intersection.position - position).normalized
 
 }

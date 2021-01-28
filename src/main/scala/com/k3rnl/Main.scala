@@ -18,7 +18,7 @@ object Main extends App {
 
   override def main(args: Array[String]): Unit = {
 
-    val _scene = Scenes.test2
+    val _scene = Scenes.refraction1
     while (true) {
       val scene = _scene.animate(System.nanoTime() / 1000000000.0)
       val image = scene.output
