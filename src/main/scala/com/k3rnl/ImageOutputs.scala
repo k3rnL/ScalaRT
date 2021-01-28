@@ -5,6 +5,7 @@ import com.k3rnl.Constants.{Color, Colors}
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 import java.io.File
+import java.lang.Thread.sleep
 import java.nio.file
 import javax.imageio.ImageIO
 import scala.reflect.io.{Directory, Path}
@@ -21,9 +22,9 @@ trait ImageOutput {
 object ImageOutputs {
   class ShellImageOutput extends ImageOutput {
     import Console._
-    val greyScale = List(' ',' ','.',',','-','~',':',';','!','*','=','$','#','@')
+    val greyScale = List(' ','.',',','-','~',':',';','!','*','=','$','#','@')
 
-    val colors: List[(String, Color)] = List((BLACK, Colors.Black), (RED, Colors.Red), (GREEN, Colors.Green), (YELLOW, Colors.Yellow),
+    val colors: List[(String, Color)] = List((RESET, Colors.Black), (RED, Colors.Red), (GREEN, Colors.Green), (YELLOW, Colors.Yellow),
       (BLUE, Colors.Blue), (MAGENTA, Colors.Magenta), (CYAN, Colors.Cyan), (WHITE, Colors.White))
 
     override def image(sizeX: Int, sizeY: Int): Image = new Image {
@@ -38,8 +39,9 @@ object ImageOutputs {
       }
 
       override def close(): Unit = {
-        image.foreach(line => println(line.mkString))
         println
+        image.foreach(line => println(line.mkString))
+        sleep(32)
       }
     }
 
