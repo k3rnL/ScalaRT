@@ -21,25 +21,25 @@ object Scenes {
   )
 
   val test2: Scene = Scene(150, 40, new Vector3d(0, 5, 20),
-    light = Vector3(0, 1, 0),
+    light = Vector3(0, 5, 0),
     objects = List(
       Sphere(Vector3(0, 0, 0), R = 5, color = new Color(0.95, 1, 0.2)),
       Plan(Vector3(0, 0, 0))
     ),
     shaders = List(lambertShading, specularLightShading),
     imageOutput = new ShellImageOutput,
-    animators = List(MoveLight(5, List(xCos, zSin)))
+    animators = List(MoveLight(15, List(xCos, zSin)))
   )
 
-  val test3: Scene = Scene(510, 200, new Vector3d(0, 5, 20),
-    light = Vector3(0, 15, 10),
+  val test3: Scene = Scene(1500, 400, new Vector3d(0, 5, 20),
+    light = Vector3(0, 5, 0),
     objects = List(
       Sphere(Vector3(0, 0, 0), R = 5, color = new Color(0.95, 1, 0.2)),
       Plan(Vector3(0, 0, 0))
     ),
     shaders = List(lambertShading, specularLightShading),
     imageOutput = new WindowOutput,
-    animators = List(MoveLight(10, List(xCos, zSin)))
+    animators = List(MoveLight(15, List(xCos, zSin)))
   )
 
   val refraction1: Scene = Scene(512, 512, new Vector3d(0, 0, 70),

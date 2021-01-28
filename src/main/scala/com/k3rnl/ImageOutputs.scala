@@ -39,7 +39,7 @@ object ImageOutputs {
       }
 
       override def close(): Unit = {
-        println
+        print("\u001b[H")
         image.foreach(line => println(line.mkString))
         sleep(32)
       }
