@@ -1,11 +1,11 @@
 package com.k3rnl
 
-import spire.algebra._
 import spire.implicits._
 import spire.math._
-import math.pow
+
 
 case class Vector3[T: Numeric](x: T, y: T, z: T) {
+
   def this(another: Vector3[T]) = this(another.x, another.y, another.z)
   def this(scalar: T) = this(scalar, scalar, scalar)
   def this() = this(0)
@@ -20,6 +20,7 @@ case class Vector3[T: Numeric](x: T, y: T, z: T) {
 
   def dot(that: Vector3[T]): T = x * that.x + y * that.y + z * that.z
   def length: T = dot(this).sqrt()
+  def distance(that: Vector3[T]): T = (this - that).length
   def normalized: Vector3[T] = Vector3[T](x / length, y / length, z / length)
 
   def negate: Vector3[T] = Vector3[T](-x, -y, -z)
