@@ -20,19 +20,27 @@ trait ImageOutput {
 
 object ImageOutputs {
   class ShellImageOutput extends ImageOutput {
-    val greyScale = List('@','#','$','=','*','!',';',':','~','-',',','.',' ', ' ')
+    import Console._
+    val greyScale = List(' ',' ','.',',','-','~',':',';','!','*','=','$','#','@')
+
+    val colors: List[(String, Color)] = List((BLACK, Colors.Black), (RED, Colors.Red), (GREEN, Colors.Green), (YELLOW, Colors.Yellow),
+      (BLUE, Colors.Blue), (MAGENTA, Colors.Magenta), (CYAN, Colors.Cyan), (WHITE, Colors.White))
 
     override def image(sizeX: Int, sizeY: Int): Image = new Image {
-      val image: Array[Array[Char]] = Array.ofDim(sizeX, sizeY)
+      val image: Array[Array[String]] = Array.ofDim(sizeY, sizeX)
 
       override def write(color: Color, x: Int, y: Int): Unit = {
         val shade = (color.x + color.y + color.z) / 3
         val charIndex: Int = (greyScale.length * shade) toInt
+        val closestColor = colors.map(a => (a._1, a._2.distance(color))).foldLeft((BLACK, 1.0))((a, b) => if (a._2 < b._2) a else b)._1
 
-        image(x)(y) = greyScale(charIndex)
+        image(y)(x) = closestColor + greyScale(charIndex)
       }
 
-      override def close(): Unit = image.foreach(line => println(line.mkString))
+      override def close(): Unit = {
+        image.foreach(line => println(line.mkString))
+        println
+      }
     }
 
   }
